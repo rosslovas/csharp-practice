@@ -109,7 +109,16 @@ namespace Draughts
 		[Test]
 		public void WrongTurnThrows2()
 		{
-			//Assert.Throws<WrongTurnException>(() => game.PerformMove(new Move(24, 20)));
+			game.PerformMove(new Move(10, 14));
+			game.PerformMove(new Move(24, 20));
+			game.PerformMove(new Move(6, 10));
+			game.PerformMove(new Move(28, 24));
+			game.PerformMove(new Move(14, 17));
+			// White now MUST capture the piece on 17.
+			game.PerformMove(new Move(22, 13));
+			// White made a capture that leads to another capture, so it is still white's turn.
+			// If black tries to move here, an exception should be thrown.
+			Assert.Throws<WrongTurnException>(() => game.PerformMove(new Move(11, 15)));
 		}
 
 		[Test]
