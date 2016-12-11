@@ -77,11 +77,24 @@ namespace Draughts
 					{
 						if (piece.colour == PieceColour.black)
 						{
-							graphics.FillEllipse(new SolidBrush(Color.Black), x * 100 + 20, y * 100 + 20, 60, 60);
+							if (piece.type == PieceType.man)
+							{
+								graphics.FillEllipse(new SolidBrush(Color.Black), x * 100 + 20, y * 100 + 20, 60, 60);
+							} else
+							{
+								graphics.FillEllipse(new SolidBrush(Color.DarkSlateGray), x * 100 + 10, y * 100 + 10, 80, 80);
+							}
 						}
 						else
 						{
-							graphics.FillEllipse(new SolidBrush(Color.White), x * 100 + 20, y * 100 + 20, 60, 60);
+							if (piece.type == PieceType.man)
+							{
+								graphics.FillEllipse(new SolidBrush(Color.White), x * 100 + 20, y * 100 + 20, 60, 60);
+							}
+							else
+							{
+								graphics.FillEllipse(new SolidBrush(Color.LightSkyBlue), x * 100 + 10, y * 100 + 10, 80, 80);
+							}
 						}
 					}
 				}
