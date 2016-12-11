@@ -174,5 +174,19 @@ namespace Draughts
 			// Black invalid turn (backwards moving piece).
 			Assert.Throws<InvalidMoveException>(() => game.PerformMove(new Move(14, 9)));
 		}
+
+		[Test]
+		public void CannotMoveOntoAnotherPiece()
+		{
+			Assert.Throws<InvalidMoveException>(() => game.PerformMove(new Move(5, 9)));
+		}
+
+		[Test]
+		public void CannotJumpOntoAnotherPiece()
+		{
+			game.PerformMove(new Move(9, 13));
+			game.PerformMove(new Move(21, 17));
+			Assert.Throws<InvalidMoveException>(() => game.PerformMove(new Move(13, 22)));
+		}
 	}
 }
