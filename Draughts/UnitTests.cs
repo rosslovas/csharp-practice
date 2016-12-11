@@ -11,11 +11,18 @@ namespace Draughts
 	public class UnitTests
 	{
 		DraughtsGame game;
+		DraughtsGame emptyGame;
 
 		[SetUp]
 		public void SetUp()
 		{
 			game = new DraughtsGame();
+			emptyGame = new DraughtsGame();
+			for (int i = 1; i <= 32; ++i)
+			{
+				var indeces = Board.NumberingToIndeces(i);
+				emptyGame.board.board[indeces.Item1, indeces.Item2] = null;
+			}
 		}
 
 		[Test]
@@ -101,7 +108,7 @@ namespace Draughts
 		}
 
 		[Test]
-		public void WrongTurnThrows1()
+		public void WrongTurnThrows()
 		{
 			Assert.Throws<WrongTurnException>(() => game.PerformMove(new Move(24, 20)));
 		}
@@ -128,6 +135,22 @@ namespace Draughts
 			Assert.DoesNotThrow(() => game.PerformMove(new Move(21, 17)));
 			// The black piece at 14 must take the white piece at 17.
 			Assert.Throws<InvalidMoveException>(() => game.PerformMove(new Move(14, 18)));
+		}
+
+		[Test]
+		public void IgnoringCaptureOpportunityThrows2()
+		{
+			var indeces15 = Board.NumberingToIndeces(15);
+			emptyGame.board.board[indeces15.Item1, indeces15.Item2]
+				= new Piece(PieceColour.black, PieceType.king);
+
+			var indeces19 = Board.NumberingToIndeces(19);
+			emptyGame.board.board[indeces19.Item1, indeces19.Item2]
+				= new Piece(PieceColour.white);
+
+			// A black king (@ 15) is behind a white piece (@ 19), and it's black's turn.
+			// The black king can take the white piece, so it should not be allowed any other move.
+			Assert.Throws<InvalidMoveException>(() => emptyGame.PerformMove(new Move(15, 18)));
 		}
 
 		[Test]

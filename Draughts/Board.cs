@@ -8,7 +8,7 @@ namespace Draughts
 {
 	public class Board
 	{
-		public Piece[,] board { get; private set; }
+		public Piece[,] board;
 
 		public Board()
 		{
@@ -151,6 +151,19 @@ namespace Draughts
 
 			board[toIndeces.Item1, toIndeces.Item2] = movingPiece;
 			board[fromIndeces.Item1, fromIndeces.Item2] = null;
+
+			// Promote the piece if it just reached the other end of the board.
+			if (toIndeces.Item2 == 7
+				&& movingPiece.type == PieceType.man
+				&& movingPiece.colour == PieceColour.black)
+			{
+				movingPiece.Promote();
+			} else if (toIndeces.Item2 == 0
+				&& movingPiece.type == PieceType.man
+				&& movingPiece.colour == PieceColour.white)
+			{
+				movingPiece.Promote();
+			}
 		}
 
 		// Converts a reachable board position (1 - 32) from standardised notation to grid indeces.

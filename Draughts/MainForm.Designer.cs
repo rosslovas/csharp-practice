@@ -44,9 +44,9 @@
 			// 
 			// OutputBox
 			// 
-			this.OutputBox.Enabled = false;
 			this.OutputBox.Location = new System.Drawing.Point(845, 30);
 			this.OutputBox.Name = "OutputBox";
+			this.OutputBox.ReadOnly = true;
 			this.OutputBox.Size = new System.Drawing.Size(541, 799);
 			this.OutputBox.TabIndex = 1;
 			this.OutputBox.Text = "";
