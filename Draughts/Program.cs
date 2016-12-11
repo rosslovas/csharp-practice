@@ -27,6 +27,7 @@ namespace Draughts
 			mainForm.moves.Add(new Move(14, 17));
 			mainForm.moves.Add(new Move(22, 13));
 			mainForm.moves.Add(new Move(13, 6));
+			mainForm.moves.Add(new Move(10, 14));
 			Application.Run(mainForm);
 		}
 	}

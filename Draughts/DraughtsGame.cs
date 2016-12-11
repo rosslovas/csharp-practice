@@ -57,6 +57,17 @@ namespace Draughts
 				throw new InvalidMoveException();
 			}
 
+			// Ensure an uncrowned piece only moves in the correct direction.
+			if (movingPiece.type == PieceType.man)
+			{
+				var deltaRow = toIndeces.Item2 - fromIndeces.Item2;
+				if ((deltaRow > 0 && turn == PieceColour.white)
+					|| (deltaRow < 0 && turn == PieceColour.black))
+				{
+					throw new InvalidMoveException();
+				}
+			}
+
 			// If any capture opportunity is present, this move MUST be capturing something.
 			if (!isCaptureMove && PlayerCouldCapture(turn))
 			{
